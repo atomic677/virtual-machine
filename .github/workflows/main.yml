@@ -1,28 +1,19 @@
 name: SSHX Remote Session
 
 on:
-  workflow_dispatch:  # Manual trigger only
+  workflow_dispatch:
 
 jobs:
   sshx-session:
     runs-on: ubuntu-latest
-    timeout-minutes: 360  # 6 hours = 360 minutes
+    timeout-minutes: 360
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install sshx
-        run: curl -sSf https://sshx.io/get | sh -s -- --yes
-
-      - name: Start sshx session
+      - name: Install and start sshx
         run: |
-          echo "=========================================="
-          echo "SSHX SESSION STARTING..."
-          echo "Look for the sshx.io link below!"
-          echo "=========================================="
-          sshx
-
-      - name: Keep alive fallback
-        if: always()
-        run: sleep 21600  # 6 hours in seconds
+          curl -sSf https://sshx.io/get | sh -s -- --yes
+          echo "::notice::Starting SSHX session - check logs for link"
+          sshx --shell bash
