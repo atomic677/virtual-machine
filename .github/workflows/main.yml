@@ -12,8 +12,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install and start sshx
+      - name: Start sshx session
         run: |
-          curl -sSf https://sshx.io/get | sh -s -- --yes
-          echo "::notice::Starting SSHX session - check logs for link"
-          sshx --shell bash
+          echo "=========================================="
+          echo "SSHX SESSION STARTING..."
+          echo "Look for the sshx.io link below!"
+          echo "=========================================="
+          curl -sSf https://sshx.io/get | sh -s -- run
